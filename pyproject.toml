@@ -1,0 +1,56 @@
+[project]
+name = "provide-workenv"
+version = "0.1.0"
+description = "Development workspace setup for the provide.io ecosystem"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Provide", email = "support@provide.io" }
+]
+
+# Optional workspace-level dependencies
+# Individual projects manage their own dependencies
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
