@@ -70,62 +70,60 @@ echo
 # Activate virtual environment
 source .venv/bin/activate
 
-# List of packages with dependencies (in dependency order)
-PACKAGES=(
-    "provide-foundation"
-    "provide-testkit"
-    "pyvider-cty"
-    "pyvider-hcl"
-    "pyvider-rpcplugin"
-    "pyvider"
-    "flavorpack"
-    "wrknv"
-    "plating"
-    "tofusoup"
-    "supsrc"
-    "pyvider-components"
-    "provide-foundry"
-)
-
-# Install dependencies for each package
-echo "Installing dependencies for each package..."
-echo
-
-for pkg in "${PACKAGES[@]}"; do
-    if [ ! -d "$pkg" ]; then
-        echo -e "${YELLOW}$pkg not found, skipping...${NC}"
-        continue
-    fi
-
-    echo -e "${BLUE}Setting up $pkg...${NC}"
-    cd "$WORKSPACE_ROOT/$pkg"
-
-    if [ -f "pyproject.toml" ]; then
-        if $USE_UV; then
-            uv pip install -e ".[dev]" 2>/dev/null || uv pip install -e . || {
-                echo -e "${RED}Failed to install $pkg${NC}"
-                continue
-            }
-        else
-            pip install -e ".[dev]" 2>/dev/null || pip install -e . || {
-                echo -e "${RED}Failed to install $pkg${NC}"
-                continue
-            }
-        fi
-        echo -e "${GREEN}$pkg installed${NC}"
+# Install wrknv first (needed for workspace commands)
+echo "Installing wrknv..."
+if [ -d "wrknv" ]; then
+    cd "$WORKSPACE_ROOT/wrknv"
+    if $USE_UV; then
+        uv pip install -e . || {
+            echo -e "${RED}Failed to install wrknv${NC}"
+            exit 1
+        }
     else
-        echo -e "${YELLOW}No pyproject.toml found in $pkg${NC}"
+        pip install -e . || {
+            echo -e "${RED}Failed to install wrknv${NC}"
+            exit 1
+        }
     fi
-    echo
-done
+    echo -e "${GREEN}wrknv installed${NC}"
+else
+    echo -e "${RED}Error: wrknv not found. Run ./scripts/bootstrap.sh first.${NC}"
+    exit 1
+fi
 
 cd "$WORKSPACE_ROOT"
+echo
+
+# Initialize workspace if not already done
+if [ ! -f ".wrknv/workspace.toml" ]; then
+    echo "Initializing wrknv workspace..."
+    wrknv workspace init --auto-discover || {
+        echo -e "${RED}Failed to initialize workspace${NC}"
+        exit 1
+    }
+    echo -e "${GREEN}Workspace initialized${NC}"
+    echo
+else
+    echo -e "${BLUE}Workspace already initialized${NC}"
+    echo
+fi
+
+# Setup workspace using wrknv
+echo "Setting up workspace repositories..."
+wrknv workspace setup --generate-only || {
+    echo -e "${RED}Failed to setup workspace${NC}"
+    exit 1
+}
 
 echo
 echo -e "${GREEN}Setup complete!${NC}"
 echo
 echo "Activate your environment with:"
 echo "  source .venv/bin/activate"
+echo
+echo "Each repository now has env.sh and env.ps1 scripts."
+echo "To setup a specific repository's workenv:"
+echo "  cd <repo> && source env.sh"
 echo
 echo "Run validation with:"
 echo "  ./scripts/validate.sh"

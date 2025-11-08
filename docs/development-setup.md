@@ -255,6 +255,84 @@ Each package follows this structure:
     └── conftest.py
 ```
 
+### Testing provide-workenv
+
+The workspace repository itself includes tests for the bootstrap, setup, and validate scripts.
+
+#### Running Workspace Tests
+
+```bash
+# Run all tests
+pytest tests/
+
+# Run only unit tests
+pytest tests/unit/
+
+# Run only integration tests
+pytest tests/integration/
+
+# Run with verbose output
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/unit/test_bootstrap_unit.py
+```
+
+#### Test Categories
+
+- **Unit Tests** (`tests/unit/`) - Test script logic with mocked commands
+- **Integration Tests** (`tests/integration/`) - Test scripts with real execution
+- **Full Workflow Tests** - End-to-end bootstrap → setup → validate workflows
+
+#### Running Tests with Coverage
+
+For code coverage analysis (run separately from default tests):
+
+```bash
+# Full coverage report with branch coverage and missing lines
+pytest tests/ --cov=scripts --cov-branch --cov-report=term-missing
+
+# Generate HTML coverage report
+pytest tests/ --cov=scripts --cov-branch --cov-report=html
+# Open htmlcov/index.html in browser
+
+# Generate XML coverage report (for CI/CD)
+pytest tests/ --cov=scripts --cov-branch --cov-report=xml
+```
+
+**Note:** Coverage runs separately from default tests to keep fast feedback during development. CI/CD workflows will run coverage checks automatically.
+
+#### Running Shellcheck
+
+Lint bash scripts with shellcheck:
+
+```bash
+# Check all scripts
+shellcheck scripts/*.sh
+
+# Check specific script
+shellcheck scripts/bootstrap.sh
+```
+
+Configuration is in `.shellcheckrc`.
+
+#### GitHub Actions Workflows
+
+Workflows are manually triggered (no automatic PR/push triggers yet):
+
+1. **CI Workflow** (`.github/workflows/ci.yml`)
+   - Runs shellcheck, ruff, mypy, and pytest
+   - Tests on both Ubuntu and macOS
+
+2. **Validate Workflow** (`.github/workflows/validate-workflow.yml`)
+   - Full end-to-end workflow testing
+   - Tests with and without optional tools (uv)
+
+To trigger manually:
+- Go to Actions tab in GitHub
+- Select the workflow
+- Click "Run workflow"
+
 ## Documentation
 
 ### Building Documentation

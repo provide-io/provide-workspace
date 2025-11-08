@@ -11,19 +11,14 @@ authors = [
 
 # Optional workspace-level dependencies
 # Individual projects manage their own dependencies
-dependencies = []
+dependencies = [
+    "provide-foundation[all]",
+]
 
 [project.optional-dependencies]
 dev = [
-    "ruff>=0.1.0",
-    "mypy>=1.7.0",
-    "pytest>=7.4.0",
-    "pytest-cov>=4.1.0",
+    "provide-testkit[all]",
 ]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
 
 [tool.ruff]
 line-length = 100
@@ -50,7 +45,78 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
+# Debug logging - enabled by default (ecosystem standard)
+log_cli = true
+log_cli_level = "DEBUG"
+
+# Async configuration
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+asyncio_default_test_loop_scope = "function"
+
+# Test discovery
 testpaths = ["tests"]
+pythonpath = ["src", "."]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+
+# Test execution
+addopts = "-m 'not integration and not slow' -rFE -q --color=yes"
+
+# Pytest markers
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests requiring setup",
+    "slow: Slow running tests",
+    "fast: Fast tests taking <100ms",
+]
+
+# Warnings
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::pytest.PytestAssertRewriteWarning",
+]
+
+# Directories to skip
+norecursedirs = [
+    ".git",
+    ".hg",
+    ".svn",
+    "*_build",
+    "build",
+    "dist",
+    "*.egg-info",
+    ".venv",
+    "venv",
+    "workenv",
+    "htmlcov",
+    "docs/_build",
+    ".hypothesis",
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["scripts"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "def __repr__",
+    "def __str__",
+    "pass",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"
