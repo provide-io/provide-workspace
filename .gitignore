@@ -66,11 +66,14 @@ logs/
 
 # uv
 .uv/
+uv.lock
 
 # Local configuration
 .env
 .env.local
 *.local
+.wrknv/
+wrknv.toml
 
 # Cloned repositories (individual projects)
 provide-foundation/
@@ -90,3 +93,18 @@ terraform-provider-pyvider/
 ci-tooling/
 messometer/
 bfiles/
+.claude/*
+plating
+provide-foundation
+provide-foundry
+provide-testkit
+pyvider
+pyvider-components
+pyvider-cty
+pyvider-hcl
+pyvider-rpcplugin
+supsrc
+terraform-provider-pyvider
+tofusoup
+wrknv
+flavorpack
