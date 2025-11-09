@@ -15,7 +15,7 @@ dependencies = [
     "provide-foundation[all]",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "provide-testkit[all]",
 ]
