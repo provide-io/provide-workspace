@@ -1,10 +1,10 @@
 # Architecture Overview
 
-Understanding the provide-workenv workspace architecture and design patterns.
+Understanding how provide-workenv orchestrates the provide.io ecosystem for development.
 
 ## Meta-Repository Pattern
 
-provide-workenv uses a **meta-repository pattern** - a workspace coordinator that manages multiple independent repositories rather than a traditional monorepo with all code in one repository.
+provide-workenv uses a **meta-repository pattern** - coordinating multiple independent repositories rather than using a traditional monorepo.
 
 ### Key Concepts
 
@@ -20,93 +20,64 @@ provide-workenv uses a **meta-repository pattern** - a workspace coordinator tha
 **Shared Virtual Environment**
 :   Single `.venv` at workspace root contains all packages, enabling cross-package development.
 
+See [Meta-Repository Pattern](meta-repository.md) for detailed comparison with alternatives.
+
 ## Why Meta-Repository?
 
 ### Advantages
 
 **Independent Releases**
-:   Each package can version and release independently based on its own schedule.
+:   Each package versions and releases independently.
 
 **Clear Ownership**
-:   Each repository has clear boundaries, ownership, and issue tracking.
+:   Each repository has clear boundaries and issue tracking.
 
-**Flexible Cloning**
-:   Developers can choose to work with all packages or just a subset.
+**Flexible Development**
+:   Work with all packages or just a subset.
 
 **Standard Git Workflows**
-:   PRs, branches, and commits work exactly like any single-repository project.
+:   PRs, branches, and commits work like any single-repository project.
 
-**CI/CD Per Package**
-:   Each package can have its own CI/CD pipeline optimized for its needs.
+**Per-Package CI/CD**
+:   Each package has its own optimized CI/CD pipeline.
 
 ### Trade-offs
 
-**Coordination Overhead**
-:   Changes spanning multiple packages require multiple PRs and coordination.
+**Coordination Needed**
+:   Changes spanning multiple packages require multiple PRs.
 
 **Version Management**
-:   Must manage inter-package dependencies and version compatibility.
+:   Must manage inter-package dependencies and compatibility.
 
-**Initial Setup**
-:   Longer initial clone time (13+ repositories vs. 1).
+**Initial Setup Time**
+:   Longer clone time (13+ repositories) but automated with bootstrap script.
 
-## Architecture Layers
+## Package Organization
 
-The ecosystem is organized in three layers based on dependencies:
+The ecosystem uses a three-layer architecture. For detailed information about what each package does, see the [Foundry Architecture](https://foundry.provide.io/foundry/architecture/).
+
+**From a workspace perspective**, the layers determine installation order and development workflow:
 
 ```
 ┌─────────────────────────────────────┐
 │         Tools Layer                 │
-│  flavorpack, wrknv, plating,       │
-│  tofusoup, supsrc                  │
+│  Can depend on Framework+Foundation │
 └──────────────┬──────────────────────┘
                │
 ┌──────────────▼──────────────────────┐
-│      Framework Layer (Pyvider)      │
-│  pyvider, pyvider-cty, pyvider-hcl,│
-│  pyvider-rpcplugin, components     │
+│      Framework Layer                │
+│  Depends on Foundation              │
 └──────────────┬──────────────────────┘
                │
 ┌──────────────▼──────────────────────┐
 │       Foundation Layer              │
-│  provide-foundation, testkit        │
+│  Minimal external dependencies      │
 └─────────────────────────────────────┘
 ```
 
-### Foundation Layer
+Installation flows bottom-up (Foundation → Framework → Tools). Changes propagate top-down (Foundation changes affect all layers).
 
-Core infrastructure used by all other packages:
-
-- **provide-foundation**: Logging, telemetry, error handling, config, etc.
-- **provide-testkit**: Testing framework, fixtures, utilities
-
-**Dependencies**: Python stdlib, minimal external dependencies
-
-### Framework Layer (Pyvider)
-
-Terraform provider framework:
-
-- **pyvider-cty**: CTY type system (Terraform types)
-- **pyvider-hcl**: HCL parsing and manipulation
-- **pyvider-rpcplugin**: gRPC plugin protocol
-- **pyvider**: Core provider framework
-- **pyvider-components**: Standard reusable components
-
-**Dependencies**: Foundation layer + domain-specific libraries (gRPC, protobuf)
-
-### Tools Layer
-
-Development and packaging tools:
-
-- **flavorpack**: PSPF/2025 packaging system
-- **wrknv**: Work environment management
-- **plating**: Documentation and code generation
-- **tofusoup**: Cross-language conformance testing
-- **supsrc**: Git workflow automation
-
-**Dependencies**: Can use both Foundation and Framework layers
-
-See [Package Layers](layers.md) for detailed dependency relationships.
+See [Package Layers](layers.md) for dependency details and [wrknv Integration](wrknv-integration.md) for how workspace configuration works.
 
 ## Workspace Structure
 
