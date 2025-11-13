@@ -284,24 +284,6 @@ pytest tests/unit/test_bootstrap_unit.py
 - **Integration Tests** (`tests/integration/`) - Test scripts with real execution
 - **Full Workflow Tests** - End-to-end bootstrap → setup → validate workflows
 
-#### Running Tests with Coverage
-
-For code coverage analysis (run separately from default tests):
-
-```bash
-# Full coverage report with branch coverage and missing lines
-pytest tests/ --cov=scripts --cov-branch --cov-report=term-missing
-
-# Generate HTML coverage report
-pytest tests/ --cov=scripts --cov-branch --cov-report=html
-# Open htmlcov/index.html in browser
-
-# Generate XML coverage report (for CI/CD)
-pytest tests/ --cov=scripts --cov-branch --cov-report=xml
-```
-
-**Note:** Coverage runs separately from default tests to keep fast feedback during development. CI/CD workflows will run coverage checks automatically.
-
 #### Running Shellcheck
 
 Lint bash scripts with shellcheck:
