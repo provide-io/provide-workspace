@@ -1,10 +1,10 @@
-# provide-workspace
+# provide-workenv
 
 This repository provides the development workspace setup for the provide.io ecosystem.
 
 ## Project Purpose
 
-provide-workspace is the entry point for developers working with the provide.io ecosystem. It provides:
+provide-workenv is the entry point for developers working with the provide.io ecosystem. It provides:
 
 1. Scripts to bootstrap the entire workspace by cloning all necessary repositories
 2. Setup and validation tools for the development environment

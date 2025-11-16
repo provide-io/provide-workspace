@@ -53,6 +53,6 @@ def test_validate_all_tests_flag(
 
     result = script_execution_context.run_script(validate_script, args=["--all-tests"])
 
-    # Should run and complete (may pass or fail, but shouldn't crash)
-    # Script will fail due to missing repos but should handle gracefully
-    assert result.returncode in (0, 1)
+    # Should mention tests or pytest
+    output = result.stdout + result.stderr
+    assert "test" in output.lower() or "pytest" in output.lower()

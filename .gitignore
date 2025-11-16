@@ -108,3 +108,6 @@ terraform-provider-pyvider
 tofusoup
 wrknv
 flavorpack
+
+# Provide tooling artifacts
+.provide/foundry/
