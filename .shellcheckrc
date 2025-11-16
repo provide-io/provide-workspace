@@ -1,4 +1,4 @@
-# ShellCheck configuration for provide-workspace scripts
+# ShellCheck configuration for provide-workenv scripts
 
 # Enable all optional checks
 enable=all
