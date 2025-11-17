@@ -1,4 +1,4 @@
-# provide-workenv
+# provide-workspace
 
 Development workspace setup for the provide.io ecosystem.
 
@@ -6,8 +6,8 @@ Development workspace setup for the provide.io ecosystem.
 
 ```bash
 # Clone this repository
-git clone https://github.com/provide-io/provide-workenv.git
-cd provide-workenv
+git clone https://github.com/provide-io/provide-workspace.git
+cd provide-workspace
 
 # Bootstrap the entire workspace (clones all repositories)
 ./scripts/bootstrap.sh
@@ -19,7 +19,7 @@ cd provide-workenv
 ./scripts/validate.sh
 ```
 
-## What is provide-workenv?
+## What is provide-workspace?
 
 This repository provides the development environment setup for working with the provide.io ecosystem, which includes 13+ interconnected Python packages for infrastructure-as-code tooling, particularly around Terraform provider development.
 
@@ -36,7 +36,7 @@ This repository provides the development environment setup for working with the 
 After running `bootstrap.sh`, your workspace will contain:
 
 ```
-provide-workenv/                 # This repository
+provide-workspace/                 # This repository
 ├── provide-foundation/          # Core telemetry, logging, error handling
 ├── provide-testkit/            # Unified testing framework
 ├── pyvider/                    # Core Terraform provider framework
@@ -80,7 +80,7 @@ cd pyvider/
 uv run pytest
 
 # Run tests for all packages
-cd provide-workenv/
+cd provide-workspace/
 ./scripts/validate.sh --all-tests
 ```
 

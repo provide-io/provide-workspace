@@ -53,7 +53,7 @@ if [ "$MODE" = "--help" ] || [ "$MODE" = "-h" ]; then
     usage
 fi
 
-echo "=== provide-workenv Bootstrap ==="
+echo "=== provide-workspace Bootstrap ==="
 echo "Mode: $MODE"
 echo
 

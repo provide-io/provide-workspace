@@ -58,8 +58,8 @@ Complete guide for setting up the provide.io development workspace.
 ### 1. Clone the Workspace Repository
 
 ```bash
-git clone https://github.com/provide-io/provide-workenv.git
-cd provide-workenv
+git clone https://github.com/provide-io/provide-workspace.git
+cd provide-workspace
 ```
 
 ### 2. Bootstrap the Workspace
@@ -73,7 +73,7 @@ This clones all provide.io repositories:
 This will create a directory structure like:
 
 ```
-provide-workenv/
+provide-workspace/
 ├── provide-foundation/
 ├── provide-testkit/
 ├── pyvider/
@@ -142,7 +142,7 @@ Infrastructure
 
 ### Virtual Environment
 
-All packages share a single virtual environment at `provide-workenv/.venv`:
+All packages share a single virtual environment at `provide-workspace/.venv`:
 
 - Located at workspace root
 - Packages installed in editable mode with `pip install -e`
@@ -255,7 +255,7 @@ Each package follows this structure:
     └── conftest.py
 ```
 
-### Testing provide-workenv
+### Testing provide-workspace
 
 The workspace repository itself includes tests for the bootstrap, setup, and validate scripts.
 
@@ -283,6 +283,24 @@ pytest tests/unit/test_bootstrap_unit.py
 - **Unit Tests** (`tests/unit/`) - Test script logic with mocked commands
 - **Integration Tests** (`tests/integration/`) - Test scripts with real execution
 - **Full Workflow Tests** - End-to-end bootstrap → setup → validate workflows
+
+#### Running Tests with Coverage
+
+For code coverage analysis (run separately from default tests):
+
+```bash
+# Full coverage report with branch coverage and missing lines
+pytest tests/ --cov=scripts --cov-branch --cov-report=term-missing
+
+# Generate HTML coverage report
+pytest tests/ --cov=scripts --cov-branch --cov-report=html
+# Open htmlcov/index.html in browser
+
+# Generate XML coverage report (for CI/CD)
+pytest tests/ --cov=scripts --cov-branch --cov-report=xml
+```
+
+**Note:** Coverage runs separately from default tests to keep fast feedback during development. CI/CD workflows will run coverage checks automatically.
 
 #### Running Shellcheck
 
@@ -379,7 +397,7 @@ pip list | grep pyvider
 **Solution**: Deactivate all environments and re-activate workspace:
 ```bash
 deactivate
-cd /path/to/provide-workenv
+cd /path/to/provide-workspace
 source .venv/bin/activate
 ```
 

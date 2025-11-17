@@ -12,7 +12,6 @@ from pathlib import Path
 import pytest
 from provide.testkit import (
     ScriptExecutionContext,
-    assert_script_success,
     assert_stdout_contains,
 )
 
@@ -34,10 +33,11 @@ def test_bootstrap_help_integration(
     script_execution_context: ScriptExecutionContext,
     bootstrap_script: Path,
 ) -> None:
-    """Test bootstrap.sh --help flag returns success."""
+    """Test bootstrap.sh --help flag displays usage."""
     result = script_execution_context.run_script(bootstrap_script, args=["--help"])
 
-    assert_script_success(result)
+    # Script displays usage and exits with code 1
+    assert result.returncode == 1
     assert_stdout_contains(result, "Usage:")
 
 
