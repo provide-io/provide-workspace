@@ -9,7 +9,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-echo "=== provide-workenv Validation ==="
+echo "=== provide-workspace Validation ==="
 echo
 
 # Get the workspace root
@@ -97,7 +97,7 @@ if [ -d ".venv" ]; then
     success ".venv exists"
 
     # Check if it's activated
-    if [[ "$VIRTUAL_ENV" == *"provide-workenv/.venv"* ]]; then
+    if [[ "$VIRTUAL_ENV" == *"provide-workspace/.venv"* ]]; then
         success "Virtual environment is activated"
     else
         warning "Virtual environment not activated (run: source .venv/bin/activate)"
@@ -144,7 +144,7 @@ fi
 echo
 
 # Check installed packages (if venv is activated)
-if [[ "$VIRTUAL_ENV" == *"provide-workenv/.venv"* ]]; then
+if [[ "$VIRTUAL_ENV" == *"provide-workspace/.venv"* ]]; then
     echo "Checking installed packages..."
 
     for repo in "${REPOS[@]}"; do
