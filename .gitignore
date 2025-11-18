@@ -90,6 +90,7 @@ tofusoup/
 supsrc/
 provide-foundry/
 terraform-provider-pyvider/
+terraform-provider-tofusoup/
 ci-tooling/
 messometer/
 bfiles/
