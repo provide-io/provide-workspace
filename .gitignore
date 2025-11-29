@@ -10,7 +10,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -90,7 +89,6 @@ tofusoup/
 supsrc/
 provide-foundry/
 terraform-provider-pyvider/
-terraform-provider-tofusoup/
 ci-tooling/
 messometer/
 bfiles/
