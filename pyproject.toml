@@ -30,6 +30,10 @@ dev = [
     "provide-testkit[all]",
 ]
 
+[tool.setuptools]
+# This is a meta-repo with scripts only, no Python packages
+packages = []
+
 [tool.setuptools.dynamic]
 version = {file = "VERSION"}
 
