@@ -28,7 +28,6 @@ This repository provides the development environment setup for working with the 
 - **Python 3.11+** (required across all packages)
 - **uv** - Modern Python package installer ([install instructions](https://github.com/astral-sh/uv))
 - **Git** - Version control
-- **Make** - Build automation
 - **Go 1.21+** - For some tooling components
 
 ## Workspace Structure
@@ -89,10 +88,10 @@ cd provide-workspace/
 ```bash
 # Build unified documentation
 cd provide-foundry/
-make docs-build
+we docs build
 
 # Serve documentation locally
-make docs-serve
+we docs serve
 ```
 
 ## Common Tasks
@@ -138,7 +137,7 @@ mypy src/
 
 For comprehensive documentation on the entire ecosystem, visit:
 
-- **Local**: Run `cd provide-foundry && make docs-serve` and visit http://localhost:8000
+- **Local**: Run `cd provide-foundry && we docs serve` and visit http://localhost:8000
 - **Online**: [provide.io documentation](https://docs.provide.io) (when available)
 
 ## Getting Help
