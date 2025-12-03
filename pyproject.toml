@@ -13,9 +13,12 @@ authors = [
     { name = "Provide", email = "support@provide.io" }
 ]
 
-# Workspace dependencies - docs deps come through testkit[docs] → foundry
+# Workspace dependencies - docs deps
+# Note: htmlproofer added explicitly because base-mkdocs.yml requires it
+# and provide-foundry (which has it) isn't published to PyPI
 dependencies = [
-    "provide-testkit[docs]",  # Chains to provide-foundry for all mkdocs deps
+    "provide-testkit[docs]",
+    "mkdocs-htmlproofer-plugin>=1.4.0",
 ]
 
 [project.urls]
