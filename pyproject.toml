@@ -16,6 +16,8 @@ authors = [
 # Optional workspace-level dependencies
 # Individual projects manage their own dependencies
 dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.23",
     "provide-foundation[all]",
 ]
 
