@@ -13,10 +13,9 @@ authors = [
     { name = "Provide", email = "support@provide.io" }
 ]
 
-# Optional workspace-level dependencies
-# Individual projects manage their own dependencies
+# Workspace dependencies - all docs deps come through testkit[docs]
 dependencies = [
-    "provide-foundation[all]",
+    "provide-testkit[docs]",
 ]
 
 [project.urls]
@@ -27,6 +26,8 @@ Issues = "https://foundry.provide.io/provide-workspace/issues"
 
 [dependency-groups]
 dev = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.23",
     "provide-testkit[all]",
 ]
 
