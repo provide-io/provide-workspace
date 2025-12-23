@@ -23,7 +23,7 @@ provide-workspace is the entry point for developers working with the provide.io 
 ### Repository Management
 - Changes are auto-committed but NOT auto-pushed
 - No git rollback capability - be careful with modifications
-- Do not update files in virtual environments (venv/workenv) directly
+- Do not update files in virtual environments (.venv) directly
 
 ### Workspace Structure
 - This is a meta-repository for workspace setup, not a true monorepo
