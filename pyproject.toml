@@ -8,15 +8,25 @@ dynamic = ["version"]
 description = "Development workspace setup for the provide.io ecosystem"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = "MIT"
 authors = [
     { name = "Provide", email = "support@provide.io" }
 ]
-
-# Workspace dependencies - all docs deps come through testkit[docs]
-dependencies = [
-    "provide-testkit[docs]",
+maintainers = [
+    { name = "provide.io", email = "code@provide.io" }
 ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+# No runtime dependencies - this is a meta/workspace package
+dependencies = []
 
 [project.urls]
 Homepage = "https://foundry.provide.io/provide-workspace/"
@@ -26,9 +36,12 @@ Issues = "https://foundry.provide.io/provide-workspace/issues"
 
 [dependency-groups]
 dev = [
+    "provide-testkit[all]",
+]
+docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.1",
-    "provide-testkit[all]",
+    "provide-testkit[docs]",
 ]
 
 [tool.setuptools]
@@ -40,6 +53,7 @@ version = {file = "VERSION"}
 
 [tool.ruff]
 line-length = 111
+indent-width = 4
 target-version = "py311"
 
 [tool.ruff.lint]
@@ -54,6 +68,17 @@ select = [
     "C4",  # flake8-comprehensions
     "SIM", # flake8-simplify
 ]
+
+[tool.ruff.lint.isort]
+known-first-party = ["provide", "tests"]
+force-sort-within-sections = true
+combine-as-imports = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
 
 [tool.mypy]
 python_version = "3.11"
@@ -120,6 +145,7 @@ parallel = true
 source = ["scripts"]
 
 [tool.coverage.report]
+fail_under = 70
 show_missing = true
 skip_covered = true
 precision = 2
