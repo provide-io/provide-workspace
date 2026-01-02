@@ -2,6 +2,11 @@
 
 Development workspace setup for the provide.io ecosystem.
 
+## Key Features
+- One-command bootstrap to clone and configure the full ecosystem.
+- Scripts for setup, validation, and common workspace workflows.
+- Centralized docs for workspace conventions and tooling.
+
 ## Quick Start
 
 ```bash
@@ -18,6 +23,25 @@ cd provide-workspace
 # Validate your setup
 ./scripts/validate.sh
 ```
+
+## Documentation
+
+For comprehensive documentation on the entire ecosystem, visit:
+
+- **Local**: Run `cd provide-foundry && we docs serve` and visit http://localhost:8000
+- **Online**: [provide.io documentation](https://docs.provide.io) (when available)
+
+## Development
+- See [CLAUDE.md](https://github.com/provide-io/provide-workspace/blob/main/CLAUDE.md) for local development notes.
+- Run `./scripts/validate.sh` to confirm your environment.
+
+## Contributing
+
+See [CLAUDE.md](https://github.com/provide-io/provide-workspace/blob/main/CLAUDE.md) for workspace development guidance, and check each package for its own `CONTRIBUTING.md` when available.
+
+## License
+
+See individual package repositories for license information.
 
 ## What is provide-workspace?
 
@@ -133,23 +157,10 @@ mypy src/
 - Changes are **NOT** auto-pushed
 - No git rollback capability - be careful with changes
 
-## Documentation
-
-For comprehensive documentation on the entire ecosystem, visit:
-
-- **Local**: Run `cd provide-foundry && we docs serve` and visit http://localhost:8000
-- **Online**: [provide.io documentation](https://docs.provide.io) (when available)
-
 ## Getting Help
 
-- Check the [detailed setup guide](docs/development-setup.md)
+- Check the [detailed setup guide](https://github.com/provide-io/provide-workspace/blob/main/docs/development-setup.md)
 - Review package-specific CLAUDE.md files for AI-assisted development notes
 - Open an issue in the relevant repository
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and contribution process.
-
-## License
-
-See individual package repositories for license information.
+Copyright (c) Provide.io LLC.
