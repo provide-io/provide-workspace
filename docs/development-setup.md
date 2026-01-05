@@ -341,23 +341,23 @@ The unified documentation is built from `provide-foundry`:
 
 ```bash
 cd provide-foundry/
-make docs-build
+we run docs.build
 ```
 
 ### Serving Documentation Locally
 
 ```bash
 cd provide-foundry/
-make docs-serve
+we run docs.serve
 ```
 
-Then visit http://localhost:8000
+Then visit http://localhost:11000
 
 ### Building Individual Package Docs
 
 ```bash
 cd <package-name>/
-make docs-serve
+we run docs.serve
 ```
 
 ### Documentation Structure
@@ -421,7 +421,7 @@ source .venv/bin/activate
 
 ### Documentation Build Errors
 
-**Problem**: `make docs-build` fails
+**Problem**: `we run docs.build` fails
 
 **Solution**:
 1. Ensure Make is installed
@@ -510,5 +510,5 @@ After setup, you can:
 
 1. Explore the codebase: `cd pyvider && ls -la`
 2. Run tests: `uv run pytest`
-3. Build documentation: `cd provide-foundry && make docs-serve`
+3. Build documentation: `cd provide-foundry && we run docs.serve`
 4. Start developing!
