@@ -42,7 +42,7 @@ Complete guide for setting up the provide.io development workspace.
    make --version
    ```
 
-6. **Go 1.21+** (for some tooling components)
+6. **Go 1.24+** (for some tooling components)
    ```bash
    go version
    ```
@@ -130,11 +130,18 @@ Components Layer
 └── pyvider-components # Standard components library
 
 Tools Layer
+├── bfiles             # File bundling utility
+├── ci-tooling         # Shared CI workflows and actions
 ├── flavorpack         # PSPF packaging system
+├── messometer         # Git history consolidation
 ├── wrknv              # Work environment management
 ├── plating            # Documentation generation
 ├── tofusoup           # Conformance testing
 └── supsrc             # Git automation
+
+Providers Layer
+├── terraform-provider-pyvider   # Pyvider Terraform provider
+└── terraform-provider-tofusoup  # TofuSoup Terraform provider
 
 Infrastructure
 └── provide-foundry    # Documentation hub
@@ -386,7 +393,7 @@ source .venv/bin/activate
 
 **Solution**: Editable installs should work automatically. Verify installation:
 ```bash
-pip list | grep pyvider
+uv pip list | grep pyvider
 # Should show paths like: /REDACTED_ABS_PATH
 ```
 
