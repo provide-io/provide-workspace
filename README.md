@@ -45,14 +45,14 @@ See individual package repositories for license information.
 
 ## What is provide-workspace?
 
-This repository provides the development environment setup for working with the provide.io ecosystem, which includes 13+ interconnected Python packages for infrastructure-as-code tooling, particularly around Terraform provider development.
+This repository provides the development environment setup for working with the provide.io ecosystem, which includes 19 interconnected Python packages for infrastructure-as-code tooling, particularly around Terraform provider development.
 
 ## Prerequisites
 
 - **Python 3.11+** (required across all packages)
 - **uv** - Modern Python package installer ([install instructions](https://github.com/astral-sh/uv))
 - **Git** - Version control
-- **Go 1.21+** - For some tooling components
+- **Go 1.24+** - For some tooling components
 
 ## Workspace Structure
 
@@ -60,6 +60,8 @@ After running `bootstrap.sh`, your workspace will contain:
 
 ```
 provide-workspace/                 # This repository
+├── bfiles/                     # File bundling utility
+├── ci-tooling/                 # Shared CI workflows and actions
 ├── provide-foundation/          # Core telemetry, logging, error handling
 ├── provide-testkit/            # Unified testing framework
 ├── pyvider/                    # Core Terraform provider framework
@@ -68,12 +70,14 @@ provide-workspace/                 # This repository
 ├── pyvider-rpcplugin/          # gRPC plugin protocol
 ├── pyvider-components/         # Standard components library
 ├── flavorpack/                 # PSPF packaging system
+├── messometer/                 # Git history consolidation
 ├── wrknv/                      # Work environment management
 ├── plating/                    # Documentation generation
 ├── tofusoup/                   # Conformance testing
 ├── supsrc/                     # Git automation
 ├── provide-foundry/            # Documentation hub
-└── terraform-provider-pyvider/ # Official Pyvider provider
+├── terraform-provider-pyvider/ # Official Pyvider provider
+└── terraform-provider-tofusoup/ # TofuSoup Terraform provider
 ```
 
 ## Development Workflow

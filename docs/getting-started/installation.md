@@ -21,7 +21,7 @@ This creates the workspace root directory.
 
 ### Step 2: Bootstrap the Workspace
 
-The bootstrap script clones all 13+ provide.io ecosystem repositories:
+The bootstrap script clones all 19 provide.io ecosystem repositories:
 
 ```bash
 ./scripts/bootstrap.sh
@@ -76,7 +76,7 @@ The setup script installs all packages in editable mode:
 
 **What it does:**
 
-- Detects if `uv` or `pip` is available
+- Detects if `uv` is available
 - Creates a shared virtual environment at `.venv/`
 - Installs all packages in dependency order with editable installs
 - Configures the environment for cross-package development
@@ -187,7 +187,7 @@ After installation, verify the setup:
 
 ```bash
 # Check that packages are installed in editable mode
-pip list | grep provide
+uv pip list | grep provide
 # Should show paths like: /REDACTED_ABS_PATH
 
 # Test an import
