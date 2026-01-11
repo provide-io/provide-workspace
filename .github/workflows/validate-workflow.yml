@@ -1,4 +1,4 @@
-name: Validate Workflow
+name: ✅ Validate Workflow
 
 on:
   workflow_dispatch:  # Manual trigger only
