@@ -1,170 +1,233 @@
-# provide-workspace
+# Provide.io Ecosystem Documentation
 
-Development workspace setup for the provide.io ecosystem.
+Welcome to the comprehensive documentation hub for the provide.io ecosystem - a collection of Python tools and frameworks for building Terraform providers, packaging applications, and managing development workflows.
 
 ## Key Features
-- One-command bootstrap to clone and configure the full ecosystem.
-- Scripts for setup, validation, and common workspace workflows.
-- Centralized docs for workspace conventions and tooling.
+- Centralized documentation for the provide.io ecosystem.
+- Shared MkDocs theme and doc tooling for consistent docs across packages.
+- Guides for building, publishing, and extending ecosystem docs.
 
-## Quick Start
+## 🚀 Quick Start
 
 ```bash
-# Clone this repository
-git clone https://github.com/provide-io/provide-workspace.git
-cd provide-workspace
-
-# Bootstrap the entire workspace (clones all repositories)
-./scripts/bootstrap.sh
-
-# Set up development environment
-./scripts/setup.sh
-
-# Validate your setup
-./scripts/validate.sh
+# Set up the entire ecosystem
+cd /path/to/provide-workspace
+uv sync --all-groups
+source .venv/bin/activate
 ```
 
-## Documentation
+## 📚 Documentation
 
-For comprehensive documentation on the entire ecosystem, visit:
+The documentation is built with MkDocs Material and covers:
 
-- **Local**: Run `cd provide-foundry && we run docs.serve` and visit http://localhost:11000
-- **Online**: [provide.io documentation](https://foundry.provide.io)
+- **Getting Started**: Installation and first steps
+- **Ecosystem**: Architecture and design principles
+- **Packages**: Individual package documentation
+- **Guides**: Cross-package integration guides
+- **API Reference**: Complete API documentation
 
 ## Development
-- See [CLAUDE.md](https://github.com/provide-io/provide-workspace/blob/main/CLAUDE.md) for local development notes.
-- Run `./scripts/validate.sh` to confirm your environment.
+- See [CLAUDE.md](https://github.com/provide-io/provide-foundry/blob/main/CLAUDE.md) for local development notes.
+- Run `mkdocs serve` in this repo for a live docs preview.
 
-## Contributing
+## 🤝 Contributing
 
-See [CLAUDE.md](https://github.com/provide-io/provide-workspace/blob/main/CLAUDE.md) for workspace development guidance, and check each package for its own `CONTRIBUTING.md` when available.
+See [CONTRIBUTING.md](https://github.com/provide-io/provide-foundry/blob/main/CONTRIBUTING.md) for ecosystem-wide contribution guidelines.
 
-## License
+## 📄 License
 
-See individual package repositories for license information.
+All packages in the provide.io ecosystem are licensed under Apache-2.0 unless otherwise specified.
 
-## What is provide-workspace?
+## 🛠 Building Documentation
 
-This repository provides the development environment setup for working with the provide.io ecosystem, which includes 19 interconnected Python packages for infrastructure-as-code tooling, particularly around Terraform provider development.
+The documentation system uses a modern, DRY approach with shared configuration:
 
-## Prerequisites
+### Architecture Overview
 
-- **Python 3.11+** (required across all packages)
-- **uv** - Modern Python package installer ([install instructions](https://github.com/astral-sh/uv))
-- **Git** - Version control
-- **Go 1.24+** - For some tooling components
+- **Shared Base Configuration** (`base-mkdocs.yml`) - Common theme, plugins, and extensions
+- **Centralized Theme** (`src/provide/foundry/theme/`) - Namespace package with CSS, JavaScript, and assets
+  - Install: `uv pip install -e .` for editable development
+- **Monorepo Plugin** - Automatic aggregation of all project documentation
+- **Auto-Generated API Docs** - Build-time generation using mkdocs-gen-files
+- **Canonical Makefile** (`Makefile.provider.tmpl`) - Standardized provider Makefile template
 
-## Workspace Structure
-
-After running `bootstrap.sh`, your workspace will contain:
-
-```
-provide-workspace/                 # This repository
-├── bfiles/                     # File bundling utility
-├── ci-tooling/                 # Shared CI workflows and actions
-├── provide-foundation/          # Core telemetry, logging, error handling
-├── provide-testkit/            # Unified testing framework
-├── pyvider/                    # Core Terraform provider framework
-├── pyvider-cty/                # CTY type system (Terraform types)
-├── pyvider-hcl/                # HCL parsing
-├── pyvider-rpcplugin/          # gRPC plugin protocol
-├── pyvider-components/         # Standard components library
-├── flavorpack/                 # PSPF packaging system
-├── messometer/                 # Git history consolidation
-├── wrknv/                      # Work environment management
-├── plating/                    # Documentation generation
-├── tofusoup/                   # Conformance testing
-├── supsrc/                     # Git automation
-├── provide-foundry/            # Documentation hub
-├── terraform-provider-pyvider/ # Official Pyvider provider
-└── terraform-provider-tofusoup/ # TofuSoup Terraform provider
-```
-
-## Development Workflow
-
-### Working with Multiple Packages
-
-All packages are installed in editable mode, so changes to any package are immediately reflected in others:
+### Building the Documentation
 
 ```bash
-# Activate the workspace environment
-source .venv/bin/activate
+# Install dependencies
+cd provide-foundry
+uv sync
 
-# Make changes in any package
-cd pyvider/
-# Edit code...
-
-# Changes are immediately available to dependent packages
-cd ../pyvider-components/
-python -c "import pyvider; print(pyvider.__version__)"
-```
-
-### Running Tests
-
-```bash
-# Run tests for a specific package
-cd pyvider/
-uv run pytest
-
-# Run tests for all packages
-cd provide-workspace/
-./scripts/validate.sh --all-tests
-```
-
-### Building Documentation
-
-```bash
-# Build unified documentation
-cd provide-foundry/
-we run docs.build
-
-# Serve documentation locally
+# Serve documentation locally (all projects)
 we run docs.serve
+# or: uv run mkdocs serve
+
+# Build complete documentation site
+we run docs.build
+# or: uv run mkdocs build --clean
+
+# Validate documentation (strict mode)
+uv run mkdocs build --strict
+
+# Clean documentation artifacts
+we run docs.clean
+
+# Check links (fast, internal only)
+we run docs.links.check
+
+# Check all links including external
+we run docs.links.external
 ```
 
-## Common Tasks
+### Building Individual Project Documentation
 
-### Adding a New Dependency
+Each project can build documentation independently:
 
 ```bash
-cd <package-name>/
-uv add <dependency-name>
+# Navigate to any project
+cd ../pyvider
+
+# Use wrknv tasks
+we run docs.build       # Build documentation
+we run docs.serve       # Serve locally
+we run docs.clean       # Clean artifacts
+we run docs.links.check # Check links
+
+# Or use mkdocs directly
+uv run mkdocs build
+uv run mkdocs serve
 ```
 
-### Code Formatting and Linting
+### Documentation Structure
 
-```bash
-# Format code
-ruff format .
+```
+provide-foundry/                    # Documentation hub
+├── base-mkdocs.yml                # Shared configuration (inherited by all projects)
+├── mkdocs.yml                     # Documentation site configuration
+├── Makefile.provider.tmpl         # Canonical provider Makefile template
+├── scripts/
+│   └── gen_ref_pages.py          # Shared API doc generator
+├── src/provide/foundry/           # Namespace package
+│   ├── __init__.py
+│   ├── py.typed
+│   ├── docs/
+│   │   ├── __init__.py
+│   │   └── gen_ref_pages.py      # API documentation generator
+│   └── theme/                     # Centralized theme assets
+│       ├── __init__.py
+│   ├── stylesheets/
+│   ├── javascripts/
+│   └── data/
+└── docs/                          # Hub-specific documentation
 
-# Check for issues
-ruff check .
+Individual Projects:
+provide-foundation/
+├── mkdocs.yml                     # Inherits from base-mkdocs.yml
+├── Makefile                       # Standard project Makefile
+└── docs/                          # Project-specific docs
+    ├── index.md
+    ├── guides/
+    └── reference/                 # Auto-generated at build time
 ```
 
-### Type Checking
+## 📦 Ecosystem Packages
 
-```bash
-mypy src/
+### Foundation Layer
+- **[provide-foundation](https://github.com/provide-io/provide-foundation)** - Core telemetry and logging infrastructure
+- **[provide-testkit](https://github.com/provide-io/provide-testkit)** - Testing utilities and fixtures
+
+### Pyvider Framework
+- **[pyvider](https://github.com/provide-io/pyvider)** - Core Terraform provider framework
+- **[pyvider-cty](https://github.com/provide-io/pyvider-cty)** - CTY type system implementation
+- **[pyvider-hcl](https://github.com/provide-io/pyvider-hcl)** - HCL parsing with CTY integration
+- **[pyvider-rpcplugin](https://github.com/provide-io/pyvider-rpcplugin)** - gRPC plugin protocol implementation
+- **[pyvider-components](https://github.com/provide-io/pyvider-components)** - Standard components library
+- **[terraform-provider-pyvider](https://github.com/provide-io/terraform-provider-pyvider)** - Official Pyvider provider
+
+### Tools & Utilities
+- **[flavorpack](https://github.com/provide-io/flavorpack)** - PSPF packaging system for executable bundles
+- **[wrknv](https://github.com/provide-io/wrknv)** - Work environment management
+- **[plating](https://github.com/provide-io/plating)** - Documentation generation for providers
+- **[tofusoup](https://github.com/provide-io/tofusoup)** - Cross-language conformance testing
+- **[supsrc](https://github.com/provide-io/supsrc)** - Automated Git commit/push utility
+
+## 🏗 Architecture
+
+The provide.io ecosystem follows a layered architecture:
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    Tools Layer                      │
+│  flavorpack │ wrknv │ plating │ tofusoup │ supsrc  │
+├─────────────────────────────────────────────────────┤
+│                  Framework Layer                    │
+│  pyvider │ pyvider-cty │ pyvider-hcl │ pyvider-*   │
+├─────────────────────────────────────────────────────┤
+│                 Foundation Layer                    │
+│       provide-foundation │ provide-testkit         │
+└─────────────────────────────────────────────────────┘
 ```
 
-## Project Standards
+## 📝 Adding Documentation to Projects
 
-- **Python 3.11+ only** - No backward compatibility
-- **Modern type hints** - Use `str | None`, not `Optional[str]`
-- **attrs for data classes** - Preferred over dataclasses
-- **Google-style docstrings**
-- **No inline defaults** - Use `constants.py` or `defaults.py`
+### For New Projects
 
-## Git Workflow
+1. **Create mkdocs.yml** inheriting from base configuration:
+   ```yaml
+   # Inherit shared configuration from provide-foundry
+   INHERIT: ../provide-foundry/base-mkdocs.yml
 
-- Changes are auto-committed (via supsrc)
-- Changes are **NOT** auto-pushed
-- No git rollback capability - be careful with changes
+   # Project-Specific Configuration
+   site_name: Your Project Documentation
+   site_url: https://foundry.provide.io/your-project/
+   dev_addr: '127.0.0.1:8XXX'  # Use unique port
+   ```
 
-## Getting Help
+2. **Extract standardized task definitions** to wrknv.toml:
+   ```python
+   # Extract canonical wrknv.toml for Python library projects
+   from provide.foundry.config import extract_python_wrknv_tasks
+   from pathlib import Path
 
-- Check the [detailed setup guide](https://github.com/provide-io/provide-workspace/blob/main/docs/development-setup.md)
-- Review package-specific CLAUDE.md files for AI-assisted development notes
-- Open an issue in the relevant repository
+   # Fresh extraction (no merge)
+   extract_python_wrknv_tasks(Path('.'), merge=False)
+
+   # Or merge with existing wrknv.toml (preserves custom tasks/config)
+   extract_python_wrknv_tasks(Path('.'), merge=True)
+   ```
+
+   The template provides standardized tasks for all Python projects:
+   - Testing: `test`, `test.unit`, `test.integration`, `test.coverage`, `test.parallel`
+   - Quality: `lint`, `format`, `typecheck`, `quality`
+   - Build: `build`, `clean`
+   - Docs: `docs.build`, `docs.serve`, `docs.clean`, `docs.links.check`
+   - Development: `dev.setup`, `dev.test`, `dev.check`
+   - CI/CD: `ci`, `ci.test`, `ci.quality`
+
+3. **Include shared Makefile targets** (DEPRECATED - use wrknv.toml instead):
+   ```python
+   # Extract canonical Makefile for terraform-provider-* projects
+   from provide.foundry.config import extract_makefile_provider
+   from pathlib import Path
+   extract_makefile_provider(Path('.'))
+   ```
+
+4. **Configure API documentation** by adding gen-files plugin:
+   ```yaml
+   plugins:
+     - gen-files:
+         scripts:
+           - docs/scripts/gen_api.py  # Wrapper imports from provide.foundry.docs
+     - literate-nav:
+         nav_file: SUMMARY.md
+   ```
+
+### Documentation Guidelines
+
+- All documentation uses **Markdown** with Material theme extensions
+- API documentation is **auto-generated** from Python docstrings at build time
+- Use **Google-style docstrings** for consistent API documentation
+- Project documentation lives in `<project>/docs/` directory
+- API reference is auto-generated in `<project>/docs/reference/` at build time
 
 Copyright (c) provide.io LLC.
