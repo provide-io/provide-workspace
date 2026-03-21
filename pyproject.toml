@@ -42,7 +42,7 @@ classifiers = [
     "Topic :: Software Development :: Build Tools",
 ]
 dependencies = [
-    "provide-foundation>=0.3.21,<0.4",
+    "provide-foundation>=0.3.21",
     "tomli>=2.2.1",
     "mkdocs>=1.6.0",
     "mkdocs-material>=9.7.1",
