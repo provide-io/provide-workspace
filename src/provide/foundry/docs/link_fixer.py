@@ -30,6 +30,9 @@ from provide.foundation import perr, pout
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
+# Pre-compiled pattern for matching markdown links with .md extension
+_RE_MD_LINK = re.compile(r"(\[[^\]]+\]\()([^)]+?\.md)(#[^)]+)?(\))")
+
 
 def fix_md_links(content: str, *, preserve_special: bool = True) -> tuple[str, int]:
     """Replace .md links with directory URLs.
@@ -54,9 +57,6 @@ def fix_md_links(content: str, *, preserve_special: bool = True) -> tuple[str, i
     Returns:
         Tuple of (modified_content, number_of_changes)
     """
-    # Pattern matches markdown links with .md extension (with or without anchors)
-    # Captures: [text](path/file.md#anchor) or [text](path/file.md)
-    pattern = r"(\[[^\]]+\]\()([^)]+?\.md)(#[^)]+)?(\))"
     changes = 0
 
     def replace_link(match: re.Match[str]) -> str:
@@ -80,7 +80,7 @@ def fix_md_links(content: str, *, preserve_special: bool = True) -> tuple[str, i
 
         return f"{prefix}{new_link}{suffix}"
 
-    new_content = re.sub(pattern, replace_link, content)
+    new_content = _RE_MD_LINK.sub(replace_link, content)
     return new_content, changes
 
 
