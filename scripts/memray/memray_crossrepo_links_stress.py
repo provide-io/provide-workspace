@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Memray stress test for crossrepo_links plugin hot paths."""
+
 import os
 
 os.environ.setdefault("LOG_LEVEL", "ERROR")
@@ -10,9 +11,17 @@ from provide.foundry.mkdocs_plugins.crossrepo_links import CrossRepoLinksPlugin
 def _build_markdown_with_crossrepo_links(num_links: int) -> str:
     """Build markdown with cross-repo links to transform."""
     packages = [
-        "pyvider", "pyvider-cty", "pyvider-hcl", "pyvider-rpcplugin",
-        "provide-foundation", "provide-testkit", "flavorpack", "wrknv",
-        "supsrc", "plating", "tofusoup",
+        "pyvider",
+        "pyvider-cty",
+        "pyvider-hcl",
+        "pyvider-rpcplugin",
+        "provide-foundation",
+        "provide-testkit",
+        "flavorpack",
+        "wrknv",
+        "supsrc",
+        "plating",
+        "tofusoup",
     ]
     lines = ["# Cross-Repo Document\n"]
     for i in range(num_links):

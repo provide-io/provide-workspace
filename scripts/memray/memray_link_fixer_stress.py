@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Memray stress test for link_fixer hot paths."""
+
 import os
 
 os.environ.setdefault("LOG_LEVEL", "ERROR")
