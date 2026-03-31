@@ -4,7 +4,9 @@ This file provides guidance for AI assistants working in this repository.
 
 ## What This Repo Is
 
-`provide-workspace` is a development workspace bootstrapper for the provide.io ecosystem. It is **not published to PyPI** and contains no source code. Its sole purpose is `uv sync` to install all provide.io repos as editable local packages in one shot.
+`provide-workspace` is a development workspace bootstrapper for the provide.io ecosystem.
+It is **not published to PyPI** and contains no source code. Its sole purpose is `uv sync`
+to install all provide.io repos as editable local packages in one shot.
 
 ## Setup
 
@@ -28,11 +30,11 @@ source .venv/bin/activate
 
 ## What's In This Repo
 
-| File             | Purpose                                                                   |
-| ---------------- | ------------------------------------------------------------------------- |
+| File | Purpose |
+|------|---------|
 | `pyproject.toml` | Lists all 14 ecosystem packages as dependencies with `repos/<name>` paths |
-| `uv.lock`        | Pinned lock file for reproducible installs                                |
-| `repos/`         | Clone ecosystem repos here (gitignored via `repos/*/`)                    |
+| `uv.lock` | Pinned lock file for reproducible installs |
+| `repos/` | Clone ecosystem repos here (gitignored via `repos/*/`) |
 
 ## What NOT To Do
 
