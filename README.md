@@ -2,32 +2,37 @@
 
 Development workspace bootstrapper for the provide.io ecosystem.
 
-Clone the repos you need into the `repos/` subdirectory, run `uv sync` once,
+Clone all provide.io repos into the same parent directory, run `uv sync` once,
 and every package is installed as an editable local install — changes you make
 to any repo are immediately reflected without reinstalling.
 
-## Setup
+## Prerequisites
+
+Clone the repos you need into the same parent directory:
 
 ```bash
-git clone git@github.com:provide-io/provide-workspace.git
-cd provide-workspace
-
-# Clone repos into the repos/ subdirectory
+# Clone everything
 for repo in \
+  provide-workspace \
   provide-foundation provide-testkit \
   pyvider pyvider-components pyvider-cty pyvider-hcl pyvider-rpcplugin \
   provide-foundry plating \
   flavorpack wrknv tofusoup supsrc \
   terraform-provider-pyvider; do
-  git clone git@github.com:provide-io/$repo.git repos/$repo
+  git clone git@github.com:provide-io/$repo.git
 done
+```
 
+## Setup
+
+```bash
+cd provide-workspace
 uv sync
 source .venv/bin/activate
 ```
 
-> **Future:** `git submodule add git@github.com:provide-io/pyvider.git repos/pyvider`
-> will work transparently once submodules are adopted.
+All packages are installed as editable installs via the symlinks in this repo.
+Changes to any sibling repo take effect immediately.
 
 ## Ecosystem Packages
 
