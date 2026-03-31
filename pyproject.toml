@@ -7,10 +7,11 @@
 # Development workspace bootstrapper for the provide.io ecosystem.
 #
 # Usage:
-#   Clone all provide-io repos into the same parent directory, then:
-#     cd provide-workspace && uv sync
-#
-#   This installs all sibling repos as editable local packages via symlinks.
+#   Clone provide-workspace, then clone repos into the repos/ subdirectory:
+#     cd provide-workspace
+#     git clone git@github.com:provide-io/pyvider.git repos/pyvider
+#     # ... etc
+#     uv sync
 #
 
 [build-system]
@@ -47,20 +48,20 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-flavorpack              = { path = "flavorpack",              editable = true }
-plating                 = { path = "plating",                 editable = true }
-provide-foundation      = { path = "provide-foundation",      editable = true }
-provide-foundry         = { path = "provide-foundry",         editable = true }
-provide-testkit         = { path = "provide-testkit",         editable = true }
-pyvider                 = { path = "pyvider",                 editable = true }
-pyvider-components      = { path = "pyvider-components",      editable = true }
-pyvider-cty             = { path = "pyvider-cty",             editable = true }
-pyvider-hcl             = { path = "pyvider-hcl",             editable = true }
-pyvider-rpcplugin       = { path = "pyvider-rpcplugin",       editable = true }
-supsrc                  = { path = "supsrc",                  editable = true }
-terraform-provider-pyvider = { path = "terraform-provider-pyvider", editable = true }
-tofusoup                = { path = "tofusoup",                editable = true }
-wrknv                   = { path = "wrknv",                   editable = true }
+flavorpack              = { path = "repos/flavorpack",              editable = true }
+plating                 = { path = "repos/plating",                 editable = true }
+provide-foundation      = { path = "repos/provide-foundation",      editable = true }
+provide-foundry         = { path = "repos/provide-foundry",         editable = true }
+provide-testkit         = { path = "repos/provide-testkit",         editable = true }
+pyvider                 = { path = "repos/pyvider",                 editable = true }
+pyvider-components      = { path = "repos/pyvider-components",      editable = true }
+pyvider-cty             = { path = "repos/pyvider-cty",             editable = true }
+pyvider-hcl             = { path = "repos/pyvider-hcl",             editable = true }
+pyvider-rpcplugin       = { path = "repos/pyvider-rpcplugin",       editable = true }
+supsrc                  = { path = "repos/supsrc",                  editable = true }
+terraform-provider-pyvider = { path = "repos/terraform-provider-pyvider", editable = true }
+tofusoup                = { path = "repos/tofusoup",                editable = true }
+wrknv                   = { path = "repos/wrknv",                   editable = true }
 
 [tool.setuptools]
 packages = []
