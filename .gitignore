@@ -405,3 +405,8 @@ docs/.shared-theme/
 
 # Local act CI config (machine-specific)
 .actrc
+
+# Memray profiling output
+memray-output/
+# Ecosystem repos — clone into repos/ or add as submodules
+repos/*/
