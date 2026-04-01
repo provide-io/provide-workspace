@@ -408,3 +408,7 @@ docs/.shared-theme/
 
 # Memray profiling output
 memray-output/
+# Ecosystem repos — clone into repos/ or add as submodules
+repos/*/
+# Machine-specific local config
+*.local.json
