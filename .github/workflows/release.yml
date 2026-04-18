@@ -1,2 +1,5 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 provide.io llc. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # provide-workspace is a development workspace bootstrapper — not published to PyPI.
 # There is no release workflow. Use `uv sync` to install all local repos.
