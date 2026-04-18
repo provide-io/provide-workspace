@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 provide.io llc. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 #
 # provide-workspace/pyproject.toml
 #
@@ -27,6 +30,18 @@ authors = [
 maintainers = [
     { name = "provide.io", email = "code@provide.io" },
 ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Build Tools",
+]
 dependencies = [
     "flavorpack",
     "plating",
@@ -43,6 +58,11 @@ dependencies = [
     "tofusoup",
     "wrknv",
 ]
+
+[project.urls]
+Homepage = "https://github.com/provide-io/provide-workspace"
+Repository = "https://github.com/provide-io/provide-workspace"
+Issues = "https://github.com/provide-io/provide-workspace/issues"
 
 [tool.uv.sources]
 flavorpack              = { path = "repos/flavorpack",              editable = true }
