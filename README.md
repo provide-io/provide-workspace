@@ -2,9 +2,7 @@
 
 Development workspace bootstrapper for the provide.io ecosystem.
 
-Clone the repos you need into the `repos/` subdirectory, run `uv sync` once,
-and every package is installed as an editable local install — changes you make
-to any repo are immediately reflected without reinstalling.
+Clone the repos you need into the `repos/` subdirectory, run `uv sync` once, and every package is installed as an editable local install — changes you make to any repo are immediately reflected without reinstalling.
 
 ## Setup
 
@@ -26,44 +24,43 @@ uv sync
 source .venv/bin/activate
 ```
 
-> **Future:** `git submodule add git@github.com:provide-io/pyvider.git repos/pyvider`
-> will work transparently once submodules are adopted.
+> **Future:** `git submodule add git@github.com:provide-io/pyvider.git repos/pyvider` will work transparently once submodules are adopted.
 
 ## Ecosystem Packages
 
 ### Foundation
 
-| Package | Description |
-|---------|-------------|
+| Package                                                                | Description                                                                |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | [provide-foundation](https://github.com/provide-io/provide-foundation) | Core library: structured logging, telemetry, config, resilience primitives |
-| [provide-testkit](https://github.com/provide-io/provide-testkit) | Testing utilities and fixtures for provide.io packages |
+| [provide-testkit](https://github.com/provide-io/provide-testkit)       | Testing utilities and fixtures for provide.io packages                     |
 
 ### Pyvider Framework
 
-| Package | Description |
-|---------|-------------|
-| [pyvider](https://github.com/provide-io/pyvider) | Core Terraform provider framework |
-| [pyvider-cty](https://github.com/provide-io/pyvider-cty) | CTY type system implementation |
-| [pyvider-hcl](https://github.com/provide-io/pyvider-hcl) | HCL parsing with CTY integration |
-| [pyvider-rpcplugin](https://github.com/provide-io/pyvider-rpcplugin) | gRPC plugin protocol implementation |
-| [pyvider-components](https://github.com/provide-io/pyvider-components) | Standard reusable provider components |
-| [terraform-provider-pyvider](https://github.com/provide-io/terraform-provider-pyvider) | Official Pyvider Terraform provider |
+| Package                                                                                | Description                           |
+| -------------------------------------------------------------------------------------- | ------------------------------------- |
+| [pyvider](https://github.com/provide-io/pyvider)                                       | Core Terraform provider framework     |
+| [pyvider-cty](https://github.com/provide-io/pyvider-cty)                               | CTY type system implementation        |
+| [pyvider-hcl](https://github.com/provide-io/pyvider-hcl)                               | HCL parsing with CTY integration      |
+| [pyvider-rpcplugin](https://github.com/provide-io/pyvider-rpcplugin)                   | gRPC plugin protocol implementation   |
+| [pyvider-components](https://github.com/provide-io/pyvider-components)                 | Standard reusable provider components |
+| [terraform-provider-pyvider](https://github.com/provide-io/terraform-provider-pyvider) | Official Pyvider Terraform provider   |
 
 ### Documentation
 
-| Package | Description |
-|---------|-------------|
-| [provide-foundry](https://github.com/provide-io/provide-foundry) | Shared MkDocs theme, plugins, and doc infrastructure |
-| [plating](https://github.com/provide-io/plating) | Auto-generates Terraform Registry documentation from pyvider components |
+| Package                                                          | Description                                                             |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [provide-foundry](https://github.com/provide-io/provide-foundry) | Shared MkDocs theme, plugins, and doc infrastructure                    |
+| [plating](https://github.com/provide-io/plating)                 | Auto-generates Terraform Registry documentation from pyvider components |
 
 ### Tools
 
-| Package | Description |
-|---------|-------------|
+| Package                                                | Description                                                 |
+| ------------------------------------------------------ | ----------------------------------------------------------- |
 | [flavorpack](https://github.com/provide-io/flavorpack) | PSPF packaging system for self-contained executable bundles |
-| [wrknv](https://github.com/provide-io/wrknv) | Task runner and work environment management |
-| [tofusoup](https://github.com/provide-io/tofusoup) | Cross-language conformance testing for Terraform providers |
-| [supsrc](https://github.com/provide-io/supsrc) | Automated Git commit/push utility |
+| [wrknv](https://github.com/provide-io/wrknv)           | Task runner and work environment management                 |
+| [tofusoup](https://github.com/provide-io/tofusoup)     | Cross-language conformance testing for Terraform providers  |
+| [supsrc](https://github.com/provide-io/supsrc)         | Automated Git commit/push utility                           |
 
 ## Architecture
 
