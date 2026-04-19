@@ -1,7 +1,6 @@
 # Contributing to provide-workspace
 
-This repo is a development workspace bootstrapper — it has no source code of its own.
-Contributions here are limited to:
+This repo is a development workspace bootstrapper — it has no source code of its own. Contributions here are limited to:
 
 - Updating `pyproject.toml` when provide.io packages are added or renamed
 - Updating `uv.lock` via `uv lock`
@@ -10,9 +9,9 @@ Contributions here are limited to:
 ## Adding a New Ecosystem Package
 
 1. Add the package name to `[project].dependencies` in `pyproject.toml`
-2. Add a `[tool.uv.sources]` entry pointing to `repos/<name>`
-3. Run `uv lock` to update the lock file
-4. Update the package table in `README.md`
+1. Add a `[tool.uv.sources]` entry pointing to `repos/<name>`
+1. Run `uv lock` to update the lock file
+1. Update the package table in `README.md`
 
 ## Running `uv sync`
 
