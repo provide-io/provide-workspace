@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: Copyright (C) 2026 provide.io llc
+# SPDX-License-Identifier: Apache-2.0
+
+# Minimal CI for provide-workspace.
+#
+# This repo is a workspace bootstrapper: no source code, no tests.
+# It wires sibling provide-io repos together via `[tool.uv.sources]`
+# editable paths. CI validates that:
+#
+#   1. pyproject.toml parses and resolves without the sibling checkouts
+#      (`--no-install-workspace`),
+#   2. pre-commit hooks pass on the config + docs,
+#   3. REUSE licensing annotations are valid.
+#
+# Integration-level validation (running `uv sync` with all siblings cloned
+# into repos/) is intentionally local-only, since CI can't clone every
+# sibling repo for every push without turning into a meta-workflow.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate workspace metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Set up uv
+        # v8.1.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+        with:
+          python-version: "3.13"
+
+      - name: Resolve workspace without siblings
+        # --no-install-workspace skips path-source resolution; confirms
+        # pyproject.toml itself parses and core metadata is valid.
+        run: uv sync --no-install-workspace
+
+      - name: Run pre-commit
+        run: uv run --with pre-commit pre-commit run --all-files --show-diff-on-failure
+
+      - name: REUSE lint
+        run: uv run --with reuse reuse lint
