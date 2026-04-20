@@ -1,2 +1,0 @@
-# provide-workspace is a development workspace bootstrapper — not published to PyPI.
-# There is no release workflow. Use `uv sync` to install all local repos.
