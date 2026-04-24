@@ -39,8 +39,8 @@ dependencies = [
     "pyvider-hcl>=0.4.0",
     "pyvider-rpcplugin>=0.4.0",
     "supsrc>=0.4.0",
-    "terraform-provider-pyvider>=0.4.0",
     "tofusoup>=0.4.0",
 ]
+
 [tool.setuptools]
 packages = []
