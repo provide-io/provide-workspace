@@ -4,11 +4,17 @@
 # Development workspace bootstrapper for the provide.io ecosystem.
 #
 # Usage:
-#   Clone provide-workspace, then clone repos into the repos/ subdirectory:
+#   Clone provide-workspace, then clone all 12 repos into the repos/ subdirectory:
 #     cd provide-workspace
 #     git clone git@github.com:provide-io/pyvider.git repos/pyvider
 #     # ... etc
 #     uv sync
+#
+#   `uv sync` resolves every dependency above from its repos/ checkout, not
+#   PyPI (see [tool.uv.workspace] / [tool.uv.sources] below). To test a
+#   combination of branches, commits, or unpublished changes across these
+#   packages, check each repos/<name> out to whatever ref you want to test
+#   and re-run `uv sync` -- no publishing required for any of them.
 #
 
 [build-system]
@@ -44,3 +50,26 @@ dependencies = [
 
 [tool.setuptools]
 packages = []
+
+[tool.uv.workspace]
+members = ["repos/*"]
+
+# Redirects each dependency above to its checkout under repos/ instead of
+# PyPI, so `uv sync` tests whatever combination of branches/commits is on
+# disk -- published or not. All 12 must be cloned into repos/ (uv errors on
+# a workspace source with no matching member, it does not fall back to
+# PyPI) -- the "combination" under test is which branch/commit each one is
+# checked out to, not which subset is present.
+[tool.uv.sources]
+flavorpack = { workspace = true }
+plating = { workspace = true }
+provide-foundation = { workspace = true }
+provide-foundry = { workspace = true }
+provide-testkit = { workspace = true }
+pyvider = { workspace = true }
+pyvider-components = { workspace = true }
+pyvider-cty = { workspace = true }
+pyvider-hcl = { workspace = true }
+pyvider-rpcplugin = { workspace = true }
+supsrc = { workspace = true }
+tofusoup = { workspace = true }
