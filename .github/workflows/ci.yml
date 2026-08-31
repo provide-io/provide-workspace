@@ -7,14 +7,24 @@
 # It wires sibling provide-io repos together via `[tool.uv.sources]`
 # editable paths. CI validates that:
 #
-#   1. pyproject.toml parses and resolves without the sibling checkouts
-#      (`--no-install-workspace`),
+#   1. pyproject.toml parses and agrees with itself,
 #   2. pre-commit hooks pass on the config + docs,
 #   3. REUSE licensing annotations are valid.
 #
+# Nothing here resolves the workspace, and nothing here can. uv refuses to
+# resolve a workspace whose members are absent -- `uv sync`, `uv lock` and a
+# bare `uv run` all fail with "references a workspace in tool.uv.sources ...
+# but is not a workspace member" -- and CI deliberately does not clone twelve
+# sibling repos on every push. This job used to run `uv sync
+# --no-install-workspace` in the belief that the flag skipped path-source
+# resolution; it does not, it only skips installing the members, so the job
+# failed on every push from the moment the sources were introduced.
+#
+# Every step that needs a tool therefore takes it with `--no-project`, which
+# is what keeps uv from trying to resolve this project at all.
+#
 # Integration-level validation (running `uv sync` with all siblings cloned
-# into repos/) is intentionally local-only, since CI can't clone every
-# sibling repo for every push without turning into a meta-workflow.
+# into repos/) stays local-only.
 
 name: CI
 
@@ -49,13 +59,19 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Resolve workspace without siblings
-        # --no-install-workspace skips path-source resolution; confirms
-        # pyproject.toml itself parses and core metadata is valid.
-        run: uv sync --no-install-workspace
+      # Checks what is visible without the siblings: that the manifest parses,
+      # and that every workspace-routed source has a matching dependency and
+      # vice versa. A source with no requirement is dead config; a sibling
+      # requirement with no source silently resolves from PyPI, which defeats
+      # the point of this repo.
+      - name: Validate workspace metadata
+        run: python3 ci/validate-workspace-metadata.py
 
+      # --no-project: pre-commit is a tool this job needs, not a dependency of
+      # this project, and resolving this project requires the absent siblings.
       - name: Run pre-commit
-        run: uv run --with pre-commit pre-commit run --all-files --show-diff-on-failure
+        run: uv run --no-project --with pre-commit pre-commit run --all-files --show-diff-on-failure
 
+      # --no-project for the same reason as above.
       - name: REUSE lint
-        run: uv run --with reuse reuse lint
+        run: uv run --no-project --with reuse reuse lint
