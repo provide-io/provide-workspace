@@ -34,18 +34,18 @@ maintainers = [
     { name = "provide.io", email = "code@provide.io" },
 ]
 dependencies = [
-    "flavorpack>=0.4.0",
-    "plating>=0.4.0",
-    "provide-foundation>=0.4.0",
-    "provide-foundry>=0.4.0",
-    "provide-testkit>=0.4.0",
-    "pyvider>=0.4.0",
-    "pyvider-components>=0.4.0",
-    "pyvider-cty>=0.4.0",
-    "pyvider-hcl>=0.4.0",
-    "pyvider-rpcplugin>=0.4.0",
+    "flavorpack>=0.4.6",
+    "plating>=0.6.1",
+    "provide-foundation>=0.4.3",
+    "provide-foundry>=0.4.1",
+    "provide-testkit>=0.4.4",
+    "pyvider>=0.6.2",
+    "pyvider-components>=0.6.1",
+    "pyvider-cty>=0.5.3",
+    "pyvider-hcl>=0.6.3",
+    "pyvider-rpcplugin>=0.4.2",
     "supsrc>=0.4.0",
-    "tofusoup>=0.4.0",
+    "tofusoup>=0.6.1",
 ]
 
 [tool.setuptools]
