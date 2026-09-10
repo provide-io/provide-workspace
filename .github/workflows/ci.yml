@@ -67,6 +67,15 @@ jobs:
       - name: Validate workspace metadata
         run: python3 ci/validate-workspace-metadata.py
 
+      # The link checker that filed #1 was removed from this repo and its run's
+      # logs have expired, so nothing has re-tested a link here since March. A
+      # relative link is this repo's own claim about its own layout and always
+      # fails the job; an external link fails only on a definitive 404 or 410,
+      # so a rate limit or an afternoon of downtime cannot turn this step into
+      # noise everyone learns to ignore. Stdlib only, so nothing to resolve.
+      - name: Check documentation links
+        run: python3 ci/check-doc-links.py
+
       # --no-project: pre-commit is a tool this job needs, not a dependency of
       # this project, and resolving this project requires the absent siblings.
       - name: Run pre-commit
